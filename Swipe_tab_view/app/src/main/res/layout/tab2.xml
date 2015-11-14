@@ -1,16 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:weightSum="1">
 
-    <TextView
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Texto 2"
-        android:id="@+id/textView2"
-        android:textAlignment="center"
-        android:layout_gravity="center_vertical"
-        android:textIsSelectable="false"
-        android:textSize="30dp"
-        android:paddingLeft="150dp"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        fab:menu_colorNormal="@color/md_orange_100"
+        fab:menu_colorPressed="@color/md_blue_100"
+        fab:menu_colorRipple="@color/md_blue_100"
+        fab:menu_labels_ellipsize="end"
+        fab:menu_labels_singleLine="true"
+        fab:menu_backgroundColor="#ccffffff"
+        fab:menu_fab_label="Cerrar">
 
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="@color/md_orange_100"
+            fab:fab_colorPressed="@color/md_blue_100"
+            fab:fab_colorRipple="@color/md_blue_100"
+            fab:fab_label="Ubicacion" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="@color/md_orange_100"
+            fab:fab_colorPressed="@color/md_blue_100"
+            fab:fab_colorRipple="@color/md_blue_100"
+            fab:fab_label="Acerca de" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="@color/md_orange_100"
+            fab:fab_colorPressed="@color/md_blue_100"
+            fab:fab_colorRipple="@color/md_blue_100"
+            fab:fab_label="Favoritos" />
+
+    </com.github.clans.fab.FloatingActionMenu>
 </LinearLayout>
