@@ -28,4 +28,5 @@ dependencies {
     compile 'com.github.wangjiegulu:AndroidInject:1.0.5'
     compile 'com.github.wangjiegulu:ShadowViewHelper:1.0.0'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.github.clans:fab:1.6.1'
 }

@@ -4,12 +4,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.github.clans.fab.FloatingActionButton;
+
 import java.util.Locale;
 
 /**
  * Created by Dr.h3cker on 14/03/2015.
  */
 public class ma_pager_adapter extends FragmentPagerAdapter {
+
+    private FloatingActionButton fab1,fab2,fab3;
+
+
     public ma_pager_adapter(FragmentManager fm) {
         super(fm);
     }
