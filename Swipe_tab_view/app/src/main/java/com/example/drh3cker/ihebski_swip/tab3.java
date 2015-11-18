@@ -70,4 +70,3 @@ public class tab3 extends Fragment {
 
 
     }
-

@@ -26,34 +26,34 @@
             android:id="@+id/fab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:src="@android:drawable/ic_menu_mylocation"
             fab:fab_size="mini"
-            fab:fab_colorNormal="@color/md_orange_100"
+            fab:fab_colorNormal="@color/md_blue_100"
             fab:fab_colorPressed="@color/md_blue_100"
             fab:fab_colorRipple="@color/md_blue_100"
-            fab:fab_label="Ubicacion" />
+            fab:fab_label="" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:src="@android:drawable/ic_menu_my_calendar"
             fab:fab_size="mini"
-            fab:fab_colorNormal="@color/md_orange_100"
+            fab:fab_colorNormal="@color/md_blue_100"
             fab:fab_colorPressed="@color/md_blue_100"
             fab:fab_colorRipple="@color/md_blue_100"
-            fab:fab_label="Acerca de" />
+            fab:fab_label="Redes Sociales" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:src="@android:drawable/ic_menu_info_details"
             fab:fab_size="mini"
-            fab:fab_colorNormal="@color/md_orange_100"
+            fab:fab_colorNormal="@color/md_blue_100"
             fab:fab_colorPressed="@color/md_blue_100"
             fab:fab_colorRipple="@color/md_blue_100"
-            fab:fab_label="Favoritos" />
+            fab:fab_label="Acerca de " />
 
     </com.github.clans.fab.FloatingActionMenu>
 </LinearLayout>

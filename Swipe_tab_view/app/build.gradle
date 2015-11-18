@@ -29,4 +29,6 @@ dependencies {
     compile 'com.github.wangjiegulu:ShadowViewHelper:1.0.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.github.clans:fab:1.6.1'
+    compile files('libs/volley.jar')
+    compile 'com.mcxiaoke.volley:library:1.0.+'
 }
