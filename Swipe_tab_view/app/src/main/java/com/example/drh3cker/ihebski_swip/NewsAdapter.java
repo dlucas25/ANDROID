@@ -1,5 +1,6 @@
 package com.example.drh3cker.ihebski_swip;
 
+import android.content.Context;
 import android.support.v7.internal.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -16,9 +19,11 @@ import java.util.ArrayList;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
 
     private ArrayList<News> item;
+    Context contexto;
 
-    public NewsAdapter(ArrayList<News> item) {
+    public NewsAdapter(ArrayList<News> item, Context contexto) {
         this.item = item;
+        this.contexto = contexto;
     }
 
     @Override
@@ -32,7 +37,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public void onBindViewHolder(NewsViewHolder NewsViewHolder, int position) {
         NewsViewHolder.title.setText(item.get(position).getTitle());
         NewsViewHolder.description.setText(item.get(position).getDescription());
-        NewsViewHolder.image.setImageResource(item.get(position).getImage());
+        //NewsViewHolder.image.setImageResource(item.get(position).getImage())
+        Picasso.with(contexto).load(item.get(position).getImage()).into(NewsViewHolder.image);
 
     }
 
