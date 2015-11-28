@@ -5,13 +5,22 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -60,6 +69,33 @@ View view =inflater.inflate(R.layout.tab2,container,false);
 
         return  view;
     }
+
+
+    public void onStart()
+    {
+        super.onStart();
+        String eventos = getResources().getString(R.string.Eventos_URL);
+        // Create request queue
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
+        //  Create json array request
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET,eventos,new Response.Listener<JSONArray>()
+        {
+
+            public void onResponse(JSONArray jsonArray)
+            {
+
+                System.out.println(jsonArray);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.e("Error", "Unable to parse json array " + volleyError.toString());
+            }
+        });
+        // add json array request to the request queue
+        requestQueue.add(jsonArrayRequest);
+    }
+
 
 
     private View.OnClickListener clickListener = new View.OnClickListener(){
