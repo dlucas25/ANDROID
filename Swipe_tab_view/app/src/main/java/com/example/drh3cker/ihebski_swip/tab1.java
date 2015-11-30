@@ -30,6 +30,8 @@ public class tab1 extends Fragment
 
             ArrayList<News> newses = new ArrayList<News>();
             newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg","UPMP","BIS Universities"));
+            newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_350/v1448434625/BIS_jsqurd.jpg","UPMP","a new image"));
+            newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_400/v1448647658/Splash_ptwnnv.jpg","UPMP","Instalations"));
             reciclador=(RecyclerView)view.findViewById(R.id.reciclador);
             imanager=new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
             reciclador.setLayoutManager(imanager);
