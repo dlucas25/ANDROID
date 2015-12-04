@@ -11,21 +11,13 @@
         android:layout_weight=".3">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal"
-            android:background="@mipmap/logo"
+            android:background="@mipmap/splash"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
+            android:layout_centerHorizontal="true" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,21 +25,9 @@
             android:id="@+id/textView2"
             android:textColor="@color/md_orange_100"
             android:textSize="45dp"
+            android:textStyle="bold|italic"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textStyle="bold|italic" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textView3"
-            android:layout_below="@+id/textView2"
-            android:layout_centerHorizontal="true"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="20dp" />
-
+            android:layout_marginTop="79dp" />
     </RelativeLayout>
-
 </LinearLayout>
