@@ -18,16 +18,5 @@
             android:background="@mipmap/splash"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MPNEWS"
-            android:id="@+id/textView2"
-            android:textColor="@color/md_orange_100"
-            android:textSize="45dp"
-            android:textStyle="bold|italic"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="79dp" />
     </RelativeLayout>
 </LinearLayout>
