@@ -46,6 +46,9 @@ public class tab1 extends Fragment
             reciclador.setLayoutManager(imanager);
             adaptador = new NewsAdapter(newses,getActivity().getApplicationContext());
             reciclador.setAdapter(adaptador);
+           // final RecyclerView re = (RecyclerView) view.findViewById(R.id.re);
+
+
 
         fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
         fab3 = (FloatingActionButton) view.findViewById(R.id.fab2);
