@@ -22,8 +22,11 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class tab1 extends Fragment
 {
@@ -31,21 +34,22 @@ public class tab1 extends Fragment
     private RecyclerView.LayoutManager imanager;
     private RecyclerView.Adapter adaptador;
     FloatingActionButton fab1,fab2,fab3;
-
+    JSONArray jsonArray;
+    public List<News> noticias;
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
         {
             View view=inflater.inflate(R.layout.tab1,container,false);
 
-            ArrayList<News> newses = new ArrayList<News>();
-            newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg","UPMP","BIS Universities"));
-            newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_350/v1448434625/BIS_jsqurd.jpg","UPMP","a new image"));
-            newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_400/v1448647658/Splash_ptwnnv.jpg","UPMP","Instalations"));
+            noticias = new ArrayList<>();
+           // ArrayList<News> newses = new ArrayList<News>();
+            //newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg","UPMP","BIS Universities"));
+            //newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_350/v1448434625/BIS_jsqurd.jpg","UPMP","a new image"));
+            //newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_400/v1448647658/Splash_ptwnnv.jpg","UPMP","Instalations"));
+
             reciclador=(RecyclerView)view.findViewById(R.id.reciclador);
             imanager=new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
             reciclador.setLayoutManager(imanager);
-            adaptador = new NewsAdapter(newses,getActivity().getApplicationContext());
-            reciclador.setAdapter(adaptador);
 
         fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
         fab3 = (FloatingActionButton) view.findViewById(R.id.fab2);
@@ -72,6 +76,9 @@ public class tab1 extends Fragment
         return  view;
     }
 
+
+
+
     public void onStart()
     {
         super.onStart();
@@ -85,7 +92,30 @@ public class tab1 extends Fragment
             public void onResponse(JSONArray jsonArray)
             {
 
-                System.out.println(jsonArray);
+                System.out.println("JsonArray: "+jsonArray);
+                //this.jsonArray = jsonArray;
+
+                for (int i=0;i<jsonArray.length();i++){
+                    try {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String nombre = jsonObject.getString("titulo");
+                        String fecha = jsonObject.getString("pub_date");
+                        String pk = jsonObject.getString("pk");
+                        String categorias = jsonObject.getString("categoria");
+                        String descripcion = jsonObject.getString("descripcion");
+                        String imagen = jsonObject.getString("imagen");
+                        News temp = new News(imagen,nombre,descripcion);
+                        noticias.add(temp);
+                        temp = null;
+                    }catch (JSONException e){
+
+                    }
+
+                }
+                adaptador = new NewsAdapter(noticias,getActivity().getApplicationContext());
+                reciclador.setAdapter(adaptador);
+
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -95,6 +125,7 @@ public class tab1 extends Fragment
         });
         // add json array request to the request queue
         requestQueue.add(jsonArrayRequest);
+
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener(){
