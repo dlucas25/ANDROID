@@ -12,16 +12,17 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrador on 11/11/2015.
  */
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
 
-    private ArrayList<News> item;
+    private List<News> item;
     Context contexto;
 
-    public NewsAdapter(ArrayList<News> item, Context contexto) {
+    public NewsAdapter(List<News> item, Context contexto) {
         this.item = item;
         this.contexto = contexto;
     }
