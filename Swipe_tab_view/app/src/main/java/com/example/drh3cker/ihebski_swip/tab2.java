@@ -21,8 +21,11 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dr.h3cker on 14/03/2015.
@@ -32,13 +35,14 @@ public class tab2 extends Fragment {
     private RecyclerView.LayoutManager imanager;
     private RecyclerView.Adapter adaptador;
     FloatingActionButton fab1,fab2,fab3;
+    public List<News> Eventos;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 View view =inflater.inflate(R.layout.tab2,container,false);
 
         ArrayList<News> newses = new ArrayList<News>();
-        newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg","UPMP","BIS Universities"));
+       // newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg","UPMP","BIS Universities"));
         reciclador=(RecyclerView)view.findViewById(R.id.reciclador);
         imanager=new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         reciclador.setLayoutManager(imanager);
@@ -85,6 +89,25 @@ View view =inflater.inflate(R.layout.tab2,container,false);
             {
 
                 System.out.println(jsonArray);
+
+
+                for (int i=0;i<jsonArray.length();i++){
+                    try {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String nombre = jsonObject.getString("titulo");
+                        String fecha = jsonObject.getString("pub_date");
+                        String pk = jsonObject.getString("pk");
+                        String categorias = jsonObject.getString("categoria");
+                        String descripcion = jsonObject.getString("descripcion");
+                        String imagen = jsonObject.getString("imagen");
+                        News temp = new News(imagen,nombre,descripcion);
+                        Eventos.add(temp);
+                        temp = null;
+                    }catch (JSONException e){
+
+                    }
+
+                }
             }
         }, new Response.ErrorListener() {
             @Override
