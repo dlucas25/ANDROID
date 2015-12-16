@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -35,11 +36,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     @Override
-    public void onBindViewHolder(NewsViewHolder NewsViewHolder, int position) {
+    public void onBindViewHolder(final NewsViewHolder NewsViewHolder, int position) {
         NewsViewHolder.title.setText(item.get(position).getTitle());
         NewsViewHolder.description.setText(item.get(position).getDescription());
         //NewsViewHolder.image.setImageResource(item.get(position).getImage())
         Picasso.with(contexto).load(item.get(position).getImage()).into(NewsViewHolder.image);
+        NewsViewHolder.fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(contexto,"presionado",Toast.LENGTH_SHORT).show();
+                NewsViewHolder.fav.setBackgroundResource(R.mipmap.star1);
+
+            }
+        });
 
     }
 
@@ -51,11 +60,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public class NewsViewHolder extends RecyclerView.ViewHolder{
         TextView title,description;
         ImageView image;
+        ImageView fav;
         public NewsViewHolder(View itemView) {
             super(itemView);
             title=(TextView)itemView.findViewById(R.id.title);
             description=(TextView)itemView.findViewById(R.id.description);
             image=(ImageView)itemView.findViewById(R.id.image);
+            fav=(ImageView)itemView.findViewById(R.id.fav);
         }
     }
 
