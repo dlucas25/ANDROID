@@ -1,5 +1,9 @@
 package com.example.drh3cker.ihebski_swip;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -51,8 +55,9 @@ public class tab1 extends Fragment
             imanager=new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
             reciclador.setLayoutManager(imanager);
 
+
         fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
-        fab3 = (FloatingActionButton) view.findViewById(R.id.fab2);
+        fab2 = (FloatingActionButton) view.findViewById(R.id.fab2);
         fab3 = (FloatingActionButton) view.findViewById(R.id.fab3);
 
         final FloatingActionMenu menu1 = (FloatingActionMenu) view.findViewById(R.id.menu1);
@@ -69,7 +74,7 @@ public class tab1 extends Fragment
         });
 
         fab1.setOnClickListener(clickListener);
-        fab3.setOnClickListener(clickListener);
+        fab2.setOnClickListener(clickListener);
         fab3.setOnClickListener(clickListener);
 
 
@@ -137,6 +142,27 @@ public class tab1 extends Fragment
                     text = fab1.getLabelText();
                     break;
                 case R.id.fab2:
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setMessage("¿Desea continuar con llamada?")
+                            .setTitle("Advertencia")
+                            .setCancelable(false)
+                            .setNegativeButton("Cancelar",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    })
+                            .setPositiveButton("Continuar",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            String url = "tel:2225825222";
+                                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
+                                            startActivity(intent);                                            //LlamarOn(); // metodo que se debe implementar
+                                            //Toast.makeText(getActivity().getApplicationContext(),"Llamada",Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                     text = fab2.getLabelText();
                     break;
                 case R.id.fab3:
@@ -144,7 +170,7 @@ public class tab1 extends Fragment
                     break;
 
             }
-            Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_LONG).show();
+           // Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_LONG).show();
         }
     };
 }
