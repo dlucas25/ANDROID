@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +29,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,27 +97,40 @@ View view =inflater.inflate(R.layout.tab2,container,false);
 
             public void onResponse(JSONArray jsonArray)
             {
+                BufferedOutputStream bos;
+                File cache = new File(Environment.getExternalStorageDirectory()+ File.separator + "Eventos.json");
+                Toast.makeText(getActivity().getApplicationContext(),"archivo creado",Toast.LENGTH_SHORT).show();
+                try{
+                    cache.createNewFile();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+                try{
+                    bos = new BufferedOutputStream(new FileOutputStream(cache));
+                    bos.write(jsonArray.toString().getBytes());
+                    bos.flush();
+                    bos.close();
+                }catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }catch (IOException a){
+                    a.printStackTrace();
+                }
+                finally {
+                    System.gc();
+                }
+                for(int i=0;i<jsonArray.length();i++){
+                    try{
+                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }
 
                 System.out.println(jsonArray);
 
 
-                for (int i=0;i<jsonArray.length();i++){
-                    try {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String nombre = jsonObject.getString("titulo");
-                        String fecha = jsonObject.getString("pub_date");
-                        String pk = jsonObject.getString("pk");
-                        String categorias = jsonObject.getString("categoria");
-                        String descripcion = jsonObject.getString("descripcion");
-                        String imagen = jsonObject.getString("imagen");
-                        News temp = new News(imagen,nombre,descripcion);
-                        Eventos.add(temp);
-                        temp = null;
-                    }catch (JSONException e){
 
-                    }
 
-                }
             }
         }, new Response.ErrorListener() {
             @Override
