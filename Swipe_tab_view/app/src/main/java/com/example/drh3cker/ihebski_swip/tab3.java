@@ -16,8 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.squareup.picasso.Downloader;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -69,6 +77,7 @@ public class tab3 extends Fragment {
 
         return  view;
     }
+
 
 
     private View.OnClickListener clickListener = new View.OnClickListener(){
