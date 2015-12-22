@@ -34,4 +34,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.1.0'
     compile files('libs/volley.jar')
     compile 'com.mcxiaoke.volley:library:1.0.+'
+    compile 'de.hdodenhof:circleimageview:1.2.1'
 }
