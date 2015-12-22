@@ -1,6 +1,7 @@
 package com.example.drh3cker.ihebski_swip;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -140,7 +141,7 @@ public class tab1 extends Fragment
             switch (v.getId()){
                 case R.id.fab1:
                     final CharSequence[] items={
-                            "Facebook","Twitter","Youtube"
+                            "Facebook","Twitter","Youtube","Pagina web"
                     };
 
                     AlertDialog.Builder builde = new AlertDialog.Builder(v.getContext());
@@ -148,8 +149,42 @@ public class tab1 extends Fragment
                     builde.setItems(items, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(v.getContext(),items[which],Toast.LENGTH_SHORT).show();
-                        }
+                            Intent intent = null;
+                            switch (which)
+                            {
+                                case 0:
+                                    try {
+                                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/131926376887259"));
+                                        startActivity(intent);
+                                    } catch (ActivityNotFoundException e) {
+                                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/Metropolitana-de-Puebla-131926376887259/"));
+                                        startActivity(intent);
+                                    }break;
+                                case 1:try {
+                                    // get the Twitter app if possible
+                                    v.getContext().getPackageManager().getPackageInfo("com.twitter.android", 0);
+                                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=227191194"));
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                } catch (Exception e) {
+                                    // no Twitter app, revert to browser
+                                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/umetropoli"));
+                                }
+                                    v.getContext().startActivity(intent);break;
+                                case 2:
+                                    try{
+                                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:Xy3SmE_-Wsk" ));
+                                    startActivity(intent);
+                                }catch (ActivityNotFoundException ex){
+                                        intent=new Intent(Intent.ACTION_VIEW,
+                                            Uri.parse("http://www.youtube.com/watch?v=Xy3SmE_-Wsk"));
+                                    startActivity(intent);
+                                }break;
+                                case 3:
+                            }
+
+                            }
+
+
                     });
                     AlertDialog alert1 = builde.create();
                     alert1.show();
