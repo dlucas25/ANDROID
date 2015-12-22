@@ -126,11 +126,25 @@ View view =inflater.inflate(R.layout.tab2,container,false);
 
 
     private View.OnClickListener clickListener = new View.OnClickListener(){
-        public void onClick(View v){
+        public void onClick(final View v){
             String text = "";
 
             switch (v.getId()){
                 case R.id.fab1:
+                    final CharSequence[] items={
+                            "Facebook","Twitter","Youtube"
+                    };
+
+                    AlertDialog.Builder builde = new AlertDialog.Builder(v.getContext());
+                    builde.setTitle("Redes Sociales");
+                    builde.setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(v.getContext(),items[which],Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    AlertDialog alert1 = builde.create();
+                    alert1.show();
                     text = fab1.getLabelText();
                     break;
                 case R.id.fab2:
