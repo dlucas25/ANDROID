@@ -46,7 +46,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         //NewsViewHolder.image.setImageResource(item.get(position).getImage())
         Picasso.with(contexto).load(item.get(position).getImage()).into(NewsViewHolder.image);
 
-        if(checkFavoriteItem(item.get(position))){
+        if(item.get(position).isStatus())
+        {
             NewsViewHolder.fav.setBackgroundResource(R.mipmap.star1);
             NewsViewHolder.fav.setTag("red");
         }else
@@ -76,15 +77,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
                 if(tag.equalsIgnoreCase("grey"))
                 {
-                    sharedPreference.addFavorite(contexto, item.get(position));
                     item.get(position).setStatus(true);
+                    sharedPreference.addFavorite(contexto, item.get(position));
                     Toast.makeText(contexto,"add to favorites",Toast.LENGTH_SHORT).show();
                     NewsViewHolder.fav.setTag("red");
                     NewsViewHolder.fav.setBackgroundResource(R.mipmap.star1);
 
                 }else{
-                    sharedPreference.removeFavorite(contexto, item.get(position));
+
                     item.get(position).setStatus(false);
+                    sharedPreference.removeFavorite(contexto, item.get(position));
                     NewsViewHolder.fav.setTag("grey");
                     NewsViewHolder.fav.setBackgroundResource(R.mipmap.star);
                     Toast.makeText(contexto,"remove to favorites",Toast.LENGTH_SHORT).show();

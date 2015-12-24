@@ -26,8 +26,7 @@ public class SharedPreference {
         SharedPreferences settings;
         Editor editor;
 
-        settings = context.getSharedPreferences(PREFS_NAME,
-                Context.MODE_PRIVATE);
+        settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         editor = settings.edit();
 
         Gson gson = new Gson();
@@ -38,18 +37,18 @@ public class SharedPreference {
         editor.commit();
     }
 
-    public void addFavorite(Context context, News News) {
+    public void addFavorite(Context context, News item) {
         List<News> favorites = getFavorites(context);
         if (favorites == null)
             favorites = new ArrayList<News>();
-        favorites.add(News);
+        favorites.add(item);
         saveFavorites(context, favorites);
     }
 
-    public void removeFavorite(Context context, News News) {
+    public void removeFavorite(Context context, News item) {
         ArrayList<News> favorites = getFavorites(context);
         if (favorites != null) {
-            favorites.remove(News);
+            favorites.remove(item);
             saveFavorites(context, favorites);
         }
     }
