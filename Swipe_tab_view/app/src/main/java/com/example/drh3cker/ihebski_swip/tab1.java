@@ -6,8 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,7 +32,15 @@ import com.github.clans.fab.FloatingActionMenu;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,13 +52,23 @@ public class tab1 extends Fragment
     FloatingActionButton fab1,fab2,fab3;
     JSONArray jsonArray;
     public List<News> noticias;
-        @Override
+    private SwipeRefreshLayout swipe;
+    @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
         {
             View view=inflater.inflate(R.layout.tab1,container,false);
+            //swipe = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+            //swipe.setEnabled(false);
 
             noticias = new ArrayList<>();
-           // ArrayList<News> newses = new ArrayList<News>();
+            try {
+                readJson();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            // ArrayList<News> newses = new ArrayList<News>();
             //newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg","UPMP","BIS Universities"));
             //newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_350/v1448434625/BIS_jsqurd.jpg","UPMP","a new image"));
             //newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_400/v1448647658/Splash_ptwnnv.jpg","UPMP","Instalations"));
@@ -55,6 +76,22 @@ public class tab1 extends Fragment
             reciclador=(RecyclerView)view.findViewById(R.id.reciclador);
             imanager=new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
             reciclador.setLayoutManager(imanager);
+            adaptador = new NewsAdapter(noticias,getActivity().getApplicationContext());
+            reciclador.setAdapter(adaptador);
+           /* swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    new Handler().postDelayed(new Runnable(){
+
+                        @Override
+                        public void run() {
+                            refresh();
+                            swipe.setRefreshing(false);
+                        }
+                    },2500);
+                }
+            }); */
+
 
 
         fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
@@ -82,13 +119,27 @@ public class tab1 extends Fragment
         return  view;
     }
 
+    private void refresh (){
+        onStart();
+        try {
+            readJson();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        imanager=new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        reciclador.setLayoutManager(imanager);
+        adaptador = new NewsAdapter(noticias,getActivity().getApplicationContext());
+        reciclador.setAdapter(adaptador);
+    }
 
 
 
     public void onStart()
     {
         super.onStart();
-        String eventos = "http://django-upmp.rhcloud.com/noticias/api/noticias/";
+        String eventos = getResources().getString(R.string.Noticias_URL);
         // Create request queue
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
         //  Create json array request
@@ -97,29 +148,38 @@ public class tab1 extends Fragment
 
             public void onResponse(JSONArray jsonArray)
             {
-
-                System.out.println("JsonArray: "+jsonArray);
-                //this.jsonArray = jsonArray;
-
-                for (int i=0;i<jsonArray.length();i++){
-                    try {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String nombre = jsonObject.getString("titulo");
-                        String fecha = jsonObject.getString("pub_date");
-                        String pk = jsonObject.getString("pk");
-                        String categorias = jsonObject.getString("categoria");
-                        String descripcion = jsonObject.getString("descripcion");
-                        String imagen = jsonObject.getString("imagen");
-                        News temp = new News(imagen,nombre,descripcion);
-                        noticias.add(temp);
-                        temp = null;
-                    }catch (JSONException e){
-
-                    }
-
+                BufferedOutputStream bos;
+                File cache = new File(Environment.getExternalStorageDirectory()+ File.separator + "Noticias.json");
+                //Toast.makeText(getActivity().getApplicationContext(),"archivo creado",Toast.LENGTH_SHORT).show();
+                try{
+                    cache.createNewFile();
+                }catch (IOException e){
+                    e.printStackTrace();
                 }
-                adaptador = new NewsAdapter(noticias,getActivity().getApplicationContext());
-                reciclador.setAdapter(adaptador);
+                try{
+                    bos = new BufferedOutputStream(new FileOutputStream(cache));
+                    bos.write(jsonArray.toString().getBytes());
+                    bos.flush();
+                    bos.close();
+                }catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }catch (IOException a){
+                    a.printStackTrace();
+                }
+                finally {
+                    System.gc();
+                }
+                for(int i=0;i<jsonArray.length();i++){
+                    try{
+                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }
+
+                System.out.println(jsonArray);
+
+
 
 
             }
@@ -131,8 +191,33 @@ public class tab1 extends Fragment
         });
         // add json array request to the request queue
         requestQueue.add(jsonArrayRequest);
-
     }
+    public void readJson () throws IOException, JSONException {
+        File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard,"Noticias.json");
+        StringBuilder jsonBuilde = new StringBuilder();
+
+        BufferedReader jsonReader = new BufferedReader(new FileReader(file));
+        for (String line = null; (line = jsonReader.readLine()) != null;){
+            jsonBuilde.append(line).append("\n");
+        }
+        JSONTokener tokener = new JSONTokener(jsonBuilde.toString());
+        JSONArray jsonArray = new JSONArray(tokener);
+
+        for(int i=0;i<jsonArray.length();i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            int pk = jsonObject.getInt("pk");
+            String categoria= jsonObject.getString("categoria");
+            String titulo = jsonObject.getString("titulo");
+            String pub_date = jsonObject.getString("pub_date");
+            String descripcion = jsonObject.getString("descripcion");
+            String imagen = jsonObject.getString("imagen");
+            News temp = new News(pk,categoria,titulo,pub_date,descripcion,imagen);
+            noticias.add(temp);
+            temp=null;
+        }
+    }
+
 
     private View.OnClickListener clickListener = new View.OnClickListener(){
         public void onClick(final View v){

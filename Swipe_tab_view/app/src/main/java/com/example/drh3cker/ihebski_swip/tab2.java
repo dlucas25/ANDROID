@@ -29,11 +29,14 @@ import com.github.clans.fab.FloatingActionMenu;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,12 +55,19 @@ public class tab2 extends Fragment {
 
 View view =inflater.inflate(R.layout.tab2,container,false);
 
-        ArrayList<News> newses = new ArrayList<News>();
-       // newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg","UPMP","BIS Universities"));
+        Eventos  = new ArrayList<News>();
+        try {
+            readJson();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg","UPMP","BIS Universities"));
         reciclador=(RecyclerView)view.findViewById(R.id.reciclador);
         imanager=new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         reciclador.setLayoutManager(imanager);
-        adaptador = new NewsAdapter(newses,getActivity().getApplicationContext());
+        adaptador = new NewsAdapter(Eventos,getActivity().getApplicationContext());
         reciclador.setAdapter(adaptador);
 
         fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
@@ -100,7 +110,7 @@ View view =inflater.inflate(R.layout.tab2,container,false);
             {
                 BufferedOutputStream bos;
                 File cache = new File(Environment.getExternalStorageDirectory()+ File.separator + "Eventos.json");
-                Toast.makeText(getActivity().getApplicationContext(),"archivo creado",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getApplicationContext(),"archivo creado",Toast.LENGTH_SHORT).show();
                 try{
                     cache.createNewFile();
                 }catch (IOException e){
@@ -141,6 +151,30 @@ View view =inflater.inflate(R.layout.tab2,container,false);
         });
         // add json array request to the request queue
         requestQueue.add(jsonArrayRequest);
+    }
+    public void readJson () throws IOException, JSONException {
+        File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard,"Eventos.json");
+        StringBuilder jsonBuilde = new StringBuilder();
+
+        BufferedReader jsonReader = new BufferedReader(new FileReader(file));
+        for (String line = null; (line = jsonReader.readLine()) != null;){
+            jsonBuilde.append(line).append("\n");
+        }
+        JSONTokener tokener = new JSONTokener(jsonBuilde.toString());
+        JSONArray jsonArray = new JSONArray(tokener);
+
+        for(int i=0;i<jsonArray.length();i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            int pk = jsonObject.getInt("pk");
+            String nombre = jsonObject.getString("nombre");
+            String fecha = jsonObject.getString("fecha");
+            String descripcion = jsonObject.getString("descripcion");
+            String imagen = jsonObject.getString("imagen");
+            News temp = new News(pk,nombre,fecha,descripcion,imagen);
+            Eventos.add(temp);
+            temp=null;
+        }
     }
 
 
