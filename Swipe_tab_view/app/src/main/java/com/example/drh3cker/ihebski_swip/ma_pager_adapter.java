@@ -1,8 +1,11 @@
 package com.example.drh3cker.ihebski_swip;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 
@@ -38,6 +41,7 @@ public class ma_pager_adapter extends FragmentPagerAdapter {
         }
         return null;
     }
+
 
     @Override
     public int getCount() {

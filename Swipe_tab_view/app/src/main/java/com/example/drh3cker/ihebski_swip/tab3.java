@@ -5,6 +5,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,21 +39,32 @@ public class tab3 extends Fragment {
     private RecyclerView reciclador;
     private RecyclerView.LayoutManager imanager;
     private RecyclerView.Adapter adaptador;
+    SharedPreference sharedPreference;
     FloatingActionButton fab1,fab2,fab3;
     Context context;
+    ArrayList<News> newses;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.tab3,container,false);
 
-        ArrayList<News> newses = new ArrayList<News>();
-        //newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg", "UPMP", "BIS Universities"));
-        reciclador=(RecyclerView)view.findViewById(R.id.reciclador);
-        imanager=new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
-        reciclador.setLayoutManager(imanager);
-        adaptador = new NewsAdapter(newses,getActivity().getApplicationContext());
-        reciclador.setAdapter(adaptador);
-
         context = getActivity().getBaseContext();
+        sharedPreference = new SharedPreference();
+        newses = sharedPreference.getFavorites(context);
+        reciclador=(RecyclerView)view.findViewById(R.id.reciclador);
+        //newses.add(new News("http://res.cloudinary.com/dxohs8oh5/image/upload/c_scale,w_150/v1448130576/UPMPLOGO_umotyg.jpg", "UPMP", "BIS Universities"));
+        if (newses == null)
+        {
+            Toast.makeText(context,"Aún no tienes favoritos",Toast.LENGTH_LONG).show();
+        }else {
+            imanager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+            reciclador.setLayoutManager(imanager);
+            adaptador = new NewsAdapter(newses, getActivity().getApplicationContext());
+            reciclador.setAdapter(adaptador);
+        }
+
+
+
+
 
         fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) view.findViewById(R.id.fab2);
@@ -77,8 +90,6 @@ public class tab3 extends Fragment {
 
         return  view;
     }
-
-
 
     private View.OnClickListener clickListener = new View.OnClickListener(){
         public void onClick(final View v){

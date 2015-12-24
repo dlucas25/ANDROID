@@ -9,6 +9,7 @@ public class News {
     private String description;
     private String category;
     private String date;
+    private boolean status;
     int id;
 
     public News(int id,String category, String title,String date,String description,String image) { //Noticias
@@ -27,6 +28,37 @@ public class News {
         this.id = id;
     }
 
+    public News(){}
+
+    public void setStatus(boolean status){this.status = status;}
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getImage() {
         return image;
@@ -38,5 +70,17 @@ public class News {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public int getId() {
+        return id;
     }
 }
