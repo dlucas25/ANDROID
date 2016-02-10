@@ -152,7 +152,7 @@ View view =inflater.inflate(R.layout.tab2,container,false);
             switch (v.getId()){
                 case R.id.fab1:
                     final CharSequence[] items={
-                            "Facebook","Twitter","Youtube"
+                            "Facebook","Twitter","Youtube","Pagina Web"
                     };
 
                     AlertDialog.Builder builde = new AlertDialog.Builder(v.getContext());
@@ -174,7 +174,7 @@ View view =inflater.inflate(R.layout.tab2,container,false);
                                 case 1:try {
                                     // get the Twitter app if possible
                                     v.getContext().getPackageManager().getPackageInfo("com.twitter.android", 0);
-                                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=227191194"));
+                                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=3158008044"));
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 } catch (Exception e) {
                                     // no Twitter app, revert to browser

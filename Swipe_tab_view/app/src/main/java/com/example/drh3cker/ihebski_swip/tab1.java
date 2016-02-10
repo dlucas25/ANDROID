@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -163,7 +164,7 @@ public class tab1 extends Fragment
                                 case 1:try {
                                     // get the Twitter app if possible
                                     v.getContext().getPackageManager().getPackageInfo("com.twitter.android", 0);
-                                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=227191194"));
+                                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=3158008044"));
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 } catch (Exception e) {
                                     // no Twitter app, revert to browser
@@ -180,6 +181,15 @@ public class tab1 extends Fragment
                                     startActivity(intent);
                                 }break;
                                 case 3:
+                                    try{
+                                        intent = new Intent(Intent.ACTION_VIEW );
+                                        startActivity(intent);
+                                    }catch (ActivityNotFoundException ex){
+                                        intent=new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("http://www.metropoli.edu.mx/"));
+                                        startActivity(intent);
+                                    }break;
+
                             }
 
                             }
