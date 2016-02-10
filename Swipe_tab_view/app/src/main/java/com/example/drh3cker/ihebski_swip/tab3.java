@@ -136,6 +136,15 @@ public class tab3 extends Fragment {
                                                 Uri.parse("http://www.youtube.com/watch?v=Xy3SmE_-Wsk"));
                                         startActivity(intent);
                                     }break;
+                                case 3:
+                                    try{
+                                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.metropoli.edu.mx/") );
+                                        startActivity(intent);
+                                    }catch (ActivityNotFoundException ex){
+                                        intent=new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("http://www.metropoli.edu.mx/"));
+                                        startActivity(intent);
+                                    }break;
                             }
 
                         }

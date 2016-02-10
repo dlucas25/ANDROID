@@ -267,7 +267,7 @@ public class tab1 extends Fragment
                                 }break;
                                 case 3:
                                     try{
-                                        intent = new Intent(Intent.ACTION_VIEW );
+                                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.metropoli.edu.mx/") );
                                         startActivity(intent);
                                     }catch (ActivityNotFoundException ex){
                                         intent=new Intent(Intent.ACTION_VIEW,

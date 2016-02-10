@@ -224,6 +224,15 @@ View view =inflater.inflate(R.layout.tab2,container,false);
                                                 Uri.parse("http://www.youtube.com/watch?v=Xy3SmE_-Wsk"));
                                         startActivity(intent);
                                     }break;
+                                case 3:
+                                    try{
+                                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.metropoli.edu.mx/") );
+                                        startActivity(intent);
+                                    }catch (ActivityNotFoundException ex){
+                                        intent=new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("http://www.metropoli.edu.mx/"));
+                                        startActivity(intent);
+                                    }break;
                             }
 
                         }
