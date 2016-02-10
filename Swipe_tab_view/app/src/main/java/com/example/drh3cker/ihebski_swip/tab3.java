@@ -181,6 +181,8 @@ public class tab3 extends Fragment {
                     text = fab2.getLabelText();
                     break;
                 case R.id.fab3:
+                    Intent intent = new Intent(getActivity().getApplicationContext(),AboutActivity.class);
+                    startActivity(intent);
                     text = fab3.getLabelText();
                     break;
 
