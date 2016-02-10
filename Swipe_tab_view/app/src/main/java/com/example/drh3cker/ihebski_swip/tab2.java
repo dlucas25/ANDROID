@@ -268,6 +268,8 @@ View view =inflater.inflate(R.layout.tab2,container,false);
                     alert.show();
                     break;
                 case R.id.fab3:
+                    Intent intent = new Intent(getActivity().getApplicationContext(),AboutActivity.class);
+                    startActivity(intent);
                     text = fab3.getLabelText();
                     break;
 

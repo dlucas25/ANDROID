@@ -34,12 +34,18 @@
         <uses-permission android:name="android.permission.INTERNET" />
 
         <activity
+<<<<<<< HEAD
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+=======
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme" >
+>>>>>>> 69c0e60c7e6abbfcfbd78193a6a9576581db31f8
         </activity>
     </application>
 
