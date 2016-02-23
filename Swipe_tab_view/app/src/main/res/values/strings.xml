@@ -5,5 +5,9 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="Eventos_URL">http://django-upmp.rhcloud.com/noticias/api/eventos/</string>
     <string name="Noticias_URL">http://django-upmp.rhcloud.com/noticias/api/noticias/</string>
+<<<<<<< HEAD
+    <string name="title_activity_detail">DetailActivity</string>
+=======
     <string name="title_activity_about">Acerca de </string>
+>>>>>>> 69c0e60c7e6abbfcfbd78193a6a9576581db31f8
 </resources>

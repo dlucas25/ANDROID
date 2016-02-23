@@ -1,10 +1,12 @@
 package com.example.drh3cker.ihebski_swip;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -103,7 +105,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return item.size();
     }
 
-    public class NewsViewHolder extends RecyclerView.ViewHolder{
+    public class NewsViewHolder extends RecyclerView.ViewHolder implements AdapterView.OnClickListener{
         TextView title,description;
         ImageView image;
         ImageView fav;
@@ -113,6 +115,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             description=(TextView)itemView.findViewById(R.id.description);
             image=(ImageView)itemView.findViewById(R.id.image);
             fav=(ImageView)itemView.findViewById(R.id.fav);
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(v.getContext(),"pulsado",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(contexto,DetailActivity.class);
+            v.getContext().startActivity(intent);
 
         }
     }
